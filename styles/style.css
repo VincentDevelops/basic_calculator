@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+:root {
+    --step--2:  clamp(0.7813rem, 0.7736rem + 0.0341vw, 0.8rem);
+    --step--1:  clamp(0.9375rem, 0.9119rem + 0.1136vw, 1rem);
+    --step-0:   clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem);
+    --step-1:   clamp(1.35rem, 1.2631rem + 0.3864vw, 1.5625rem);
+    --step-2:   clamp(1.62rem, 1.4837rem + 0.6057vw, 1.9531rem);
+    --step-3:   clamp(1.944rem, 1.7405rem + 0.9044vw, 2.4414rem);
+    --step-4:   clamp(2.3328rem, 2.0387rem + 1.3072vw, 3.0518rem);
+    --step-5:   clamp(2.7994rem, 2.384rem + 1.8461vw, 3.8147rem);
+
+    --font-color:           #036264;
+    --clicked-button-color: #8f5774;
+    --button-color:         #e0829d;
+    --screen-color:         #dac4d0;
+}
+
+
+.flex { 
+    display: flex;
+}
+
+
+.calculator-container {
+    width:          100%;
+    height:         100%;
+    flex-direction: column;
+}
+
+
+
+/* Screens ============================================== */
+
+.screen-container {
+    height:             20%;
+    flex-direction:     column;
+    background-color:   var(--screen-color);
+    padding:            .5rem;
+    width:              1;
+    gap:                .25rem;
+}
+
+.screen {
+    justify-content:    right;
+    align-items:        center;
+    color:              var(--font-color);
+}
+
+.expression-screen {
+    height:     25%;
+    font-size:  var(--step-1);
+}
+
+.preview-screen {
+    height:     75%;
+    font-size:  var(--step-5);
+}
+
+
+
+/* Calculator buttons ===================================*/
+.buttons-container {
+    flex-direction: row;
+    height:         100%;
+}
+
+/* Numpad ===============================================*/
+.numpad-container {
+    flex-direction: column;
+    width:          80%;
+}
+
+.numpad-row {
+    flex-grow: 1;
+}
+
+.numpad-button {
+    flex: 1;
+}
+
+/* Funcpad ============================================== */
+.funcpad-container {
+    flex-direction: column;
+    width:          20%
+}
+
+/* Buttons =============================================== */
+.button {
+    font-size:          3rem;
+    color:              var(--font-color);
+    background-color:   var(--button-color);
+    border:             none;
+  box-shadow:           inset 0 0 0 1px var(--screen-color);
+}
+
+.button:hover {
+    filter: brightness(75%);
+}
+
+
+.git-link {
+    display:    flex;
+    width:      100%;
+    font-size:  .7rem;
+}

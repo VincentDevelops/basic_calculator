@@ -4,10 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <script href="../scripts/script.js"></script>
+    <script src="../scripts/script.js" defer></script>
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    
+    <main class="calculator-container container flex">
+        <div class="screen-container flex">
+            <div class="expression-screen screen flex">1+1</div>
+            <div class="preview-screen screen flex">23333333332+2</div>
+        </div>
+
+        <div class="buttons-container flex">
+            <div class="numpad-container flex">
+                <div class="numpad-row flex">
+                    <button class="numpad-button number button">7</button>
+                    <button class="numpad-button number button">8</button>
+                    <button class="numpad-button number button">9</button>
+                </div>
+                <div class="numpad-row flex">
+                    <button class="numpad-button number button">4</button>
+                    <button class="numpad-button number button">5</button>
+                    <button class="numpad-button number button">6</button>
+                
+                </div>
+                <div class="numpad-row flex">
+                    <button class="numpad-button number button">1</button>
+                    <button class="numpad-button number button">2</button>
+                    <button class="numpad-button number button">3</button>
+                </div>
+                <div class="numpad-row flex">
+                    <button class="numpad-button function button">C</button>
+                    <button class="numpad-button number button">0</button>
+                    <button class="numpad-button function button">.</button>
+                </div>
+            </div>
+            <div class="funcpad-container flex">
+                <button class="numpad-button function button">
+                    <img class="git-link flex" src="../assets/github.png" alt="GitHub logo">
+                </button>
+                <button class="numpad-button function button">÷</button>
+                <button class="numpad-button function button">x</button>
+                <button class="numpad-button function button">-</button>
+                <button class="numpad-button function button">+</button>
+                <button class="numpad-button function button">=</button>
+            </div>
+        </div>
+
+
+
+    </main>
+    <footer class="footer-container container flex">
+
+    </footer>
 </body>
 </html>

@@ -108,6 +108,8 @@ body {
 
 .git-link {
     display:    flex;
-    width:      100%;
+    width:      50%;
+    justify-self: center;
+    align-self: center;
     font-size:  .7rem;
 }

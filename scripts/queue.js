@@ -1,6 +1,7 @@
 class Queue {
     constructor() {
         this.items = [];
+        console.log("Queue initialized succesfully");
     }
 
     enqueue(element) {

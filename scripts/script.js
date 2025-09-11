@@ -13,45 +13,63 @@ var state = States.IDLE;
 
 var buttons = document.querySelectorAll('.button');
 var expression = new Queue();
+var calculator = new Calculator();
 
-var num1 = '';
-var num2 = '';
-var num3 = '';
+var clearHit = false;
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         if (button.classList.contains('number')) {
             initNumberButton(button);
-        } else {
-            // initFunctionButton
-        }
+        } else if (button.classList.contains('operator')) {
+            initFunctionButton(button);
+        } 
     })
 })
 
 function initNumberButton(button) {
-    if (button.classList.contains('number')) {
-        if (expression.isEmpty()) {
-            num1 = num1 + button.textContent;
-            displayToScreen(PREVIEW_SCREEN, num1);
-        } else {
-            clearScreen(PREVIEW_SCREEN)
+    if (PREVIEW_SCREEN.textContent.length >= 13) return;
 
-
-
-
-            num2 = num2 + button.textContent;
-            displayToScreen(PREVIEW_SCREEN, num1);
-        }
+    if (expression.isEmpty() === false) {
+        expression.enqueue(PREVIEW_SCREEN.textContent);
+        pushPreviewToExpression();
+        clearScreen(PREVIEW_SCREEN);
     }
+
+    PREVIEW_SCREEN.textContent = PREVIEW_SCREEN.textContent + button.textContent;
+}
+
+function initFunctionButton(button) {
+    if (expression.isEmpty()) return;
+    
+    let operator = button.textContent;
+    
+    switch (operator) {
+        case '/':
+            state = States.DIVIDE;
+            break;
+        case 'x':
+            state = States.MULTIPLY;
+            break;
+        case '-':
+            state = States.SUBTRACT;
+            break;
+        case '+':
+            state = States.ADD;
+            break;
+    }
+
+
+
 }
 
 
-// function initNumberButton(button) {   
-//     if (num1.length === MAXIMUM_PREVIEW_LENGTH) return;
 
-//     num1 = num1 + button.textContent;
-//     displayToScreen(PREVIEW_SCREEN, num1);
-// }
+
+
+
+
+// Display
 
 function displayToScreen(screenType, value) {
     screenType.textContent = value;
@@ -59,4 +77,14 @@ function displayToScreen(screenType, value) {
 
 function clearScreen(screenType) {
     displayToScreen(screenType, '');
+}
+
+function consoleState() {
+    console.log(state);
+}
+
+function pushPreviewToExpression() {
+    if (expression.isEmpty() === true) return;
+
+    EXPRESSION_SCREEN.textContent = expression.print();
 }

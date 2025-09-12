@@ -28,4 +28,8 @@ class Queue {
     print() {
         console.log(this.items.join(" -> "));
     }
+
+    clear() {
+        this.items = [];
+    }
 }

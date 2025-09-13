@@ -1,6 +1,7 @@
 const EXPRESSION_SCREEN = document.querySelector('.expression-screen');
 const PREVIEW_SCREEN    = document.querySelector('.preview-screen');
 const CLEAR_SCREEN      = document.querySelector('.clear');
+const CALCULATE         = document.querySelector('.calculate');
 const MAXIMUM_PREVIEW_LENGTH = 13;
 const States = {
     IDLE:       0,
@@ -27,10 +28,33 @@ CLEAR_SCREEN.addEventListener('click', () => {
         console.log("full clear");
         expression.clear();
         clearHit = false;
+        num1 = '';
+        num2 = '';
+        clearScreen(EXPRESSION_SCREEN);
+        state = States.IDLE;
     }
     clearScreen(PREVIEW_SCREEN);
 })
 
+CALCULATE.addEventListener('click', () => {
+
+    if (state === States.DIVIDE && parseFloat(num2) === 0) {
+        console.log('Error: dividing by 0')
+        displayToScreen(PREVIEW_SCREEN, 'ERROR');
+        num2 = '';
+    }
+
+    if (num1.length > 0 && num2.length > 0 && state !== States.IDLE) {
+        console.log("we in calculate");
+        let result = calculator.calculate(parseFloat(num1), parseFloat(num2), state);
+        num1 = String(result);
+        num2 = '';
+        displayToScreen(EXPRESSION_SCREEN, result);
+        displayToScreen(PREVIEW_SCREEN, result);
+        state = States.IDLE;
+        
+    }
+})
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
@@ -42,17 +66,22 @@ buttons.forEach(button => {
     })
 })
 
-
-
 // Number button functionality ==========================
 function initNumberButton(button) {
-    let value = PREVIEW_SCREEN.textContent + button.textContent;
-    if (isNaN(value)) {
-        console.log("NOT A NUMBER");
-        clearScreen(PREVIEW_SCREEN);
-        value = button.textContent;
+    if (button.textContent === '.' && PREVIEW_SCREEN.textContent.includes('.')) {
+        return; // Do nothing, prevents multiple decimals
     }
 
+    // clearing operators
+    if (isNaN(parseFloat(PREVIEW_SCREEN.textContent)) && PREVIEW_SCREEN.textContent != '.'){
+        clearScreen(PREVIEW_SCREEN);
+    }
+
+    if (PREVIEW_SCREEN.textContent.length >= MAXIMUM_PREVIEW_LENGTH) return;
+
+    clearHit = false;
+
+    let value = PREVIEW_SCREEN.textContent + button.textContent;
 
     console.log('state: ' + state);
 
@@ -75,9 +104,17 @@ function initOperatorButton(button) {
     }
 
     if (num1.length > 0 && num2.length > 0 && state !== States.IDLE) {
+
+    if (state === States.DIVIDE && parseFloat(num2) === 0) {
+        console.log('dividing by 0')
+        displayToScreen(PREVIEW_SCREEN, 'ERROR');
+        num2 = '';
+        return;
+    }
+
+        console.log("we in here");
         let result = calculator.calculate(parseFloat(num1), parseFloat(num2), state);
-        console.log(result);
-        num1 = result;
+        num1 = String(result);
         num2 = '';
     }
 
@@ -87,7 +124,6 @@ function initOperatorButton(button) {
     EXPRESSION_SCREEN.textContent = `${num1} ${operator}`;
     clearScreen(PREVIEW_SCREEN);
 }
-
 
 function setState(operator) {
     switch (operator) {
@@ -103,18 +139,12 @@ function setState(operator) {
         case '+':
             state = States.ADD;
             break;
-    }
+    } 
     
     console.log("state: " + state);
 }
 
-
-
-
-
-
-
-// Display
+// Screens functionality ===========================
 
 function displayToScreen(screenType, value) {
     screenType.textContent = value;
@@ -133,3 +163,5 @@ function pushPreviewToExpression() {
 
     EXPRESSION_SCREEN.textContent = expression.print();
 }
+
+// 

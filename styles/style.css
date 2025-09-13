@@ -3,6 +3,10 @@ body {
     padding: 0;
     width: 100vw;
     height: 100vh;
+    background-color: var(--font-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* @link https://utopia.fyi/type/calculator?c=360,18,1.2,1240,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
@@ -33,6 +37,9 @@ body {
     width:          100%;
     height:         100%;
     flex-direction: column;
+
+    max-width: 700px;
+    max-height: 500px;
 }
 
 
@@ -61,6 +68,7 @@ body {
 
 .preview-screen {
     height:     75%;
+    min-height: 100px;
     font-size:  var(--step-5);
 }
 
@@ -102,7 +110,7 @@ body {
 }
 
 .button:hover {
-    filter: brightness(75%);
+    filter: brightness(90%);
 }
 
 
